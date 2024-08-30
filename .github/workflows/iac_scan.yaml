@@ -41,6 +41,11 @@ jobs:
         run: |-
           sed -i 's#git::https:/##g' ${{ env.TRIVY_REPORT_FILE }}
 
+      - name: cat
+        run: |
+          ls
+          cat ${{ env.TRIVY_REPORT_FILE }}
+
       - name: Upload trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: success() || failure()
