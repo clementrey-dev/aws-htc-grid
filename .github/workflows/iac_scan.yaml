@@ -46,6 +46,8 @@ jobs:
         if: success() || failure()
         with:
           sarif_file: "${{ env.TRIVY_REPORT_FILE }}"
+        env:
+         ACTIONS_STEP_DEBUG: true
 
       - name: Save report results as an artifact
         uses: actions/upload-artifact@v3
