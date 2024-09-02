@@ -45,7 +45,13 @@ jobs:
         run: |
           ls
           cat ${{ env.TRIVY_REPORT_FILE }}
-
+          
+      - name: Save report results as an artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.TRIVY_REPORT_FILE }}
+          path: ${{ env.TRIVY_REPORT_FILE }}
+          
       - name: Upload trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: success() || failure()
@@ -54,11 +60,7 @@ jobs:
         env:
          ACTIONS_STEP_DEBUG: true
 
-      - name: Save report results as an artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.TRIVY_REPORT_FILE }}
-          path: ${{ env.TRIVY_REPORT_FILE }}
+
 
 ##################
 # Checkov Checks #
